@@ -4,8 +4,9 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView, FlatList } from 'reac
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 
 const curr = new Date; // get current date
+const currDate = curr.getDate();
 const first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-console.log(first)
+console.log(curr.getDate());
 
 const DATA = [
   {
@@ -42,7 +43,9 @@ const DATA = [
 const Item = ({ day, date }) => (
   <View style={styles.item}>
     <Text style={styles.day}>{day}</Text>
-    <Text style={styles.dates}>{date}</Text>
+    <View style={{...styles.highlight, backgroundColor: (currDate === date) ? 'lightgray' : null}}>
+      <Text style={styles.dates}>{date}</Text>
+    </View>
   </View>
 );
 
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'orange',
     paddingHorizontal: 15,
     paddingTop: 10,
-    paddingBottom: 25,
+    paddingBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: 'lightgrey'
   },
@@ -108,6 +111,13 @@ const styles = StyleSheet.create({
   },
   dates: {
     fontSize: 20,
-    fontWeight: '400'
+    fontWeight: '400',
+  },
+  highlight: {
+    width : '100%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
   }
 });

@@ -39,6 +39,37 @@ const DATA = [
   },
 ];
 
+const TICKLE = [
+  {
+    day: 'SUN',
+    isFilled: false,
+  },
+  {
+    day: 'MON',
+    isFilled: false,
+  },
+  {
+    day: 'TUE',
+    isFilled: false,
+  },
+  {
+    day: 'WED',
+    isFilled: false,
+  },
+  {
+    day: 'THU',
+    isFilled: false,
+  },
+  {
+    day: 'FRI',
+    isFilled: false,
+  },
+  {
+    day: 'SAT',
+    isFilled: false,
+  },
+]; 
+
 // component 공부하기
 const Item = ({ day, date }) => (
   <View style={styles.item}>
@@ -49,10 +80,19 @@ const Item = ({ day, date }) => (
   </View>
 );
 
+const Tickle = ({ }) => (
+  <View style={styles.tickle}>
+  </View>
+);
+
 export default function App() {
 
-  const renderItem = ({ item }) => (
-    <Item day={item.day} date={item.date} />
+  const renderItem = ({ item }) => ( // doc에 renderItem은 {item, index, separators} 쓰도록 정의되어 있음. DATA array의 각 오브젝트가 item.  __ 어떤 오브젝트가 함수의 parameter로 들어왔을때 item 이라는 key에 매칭되는 값을 인자로 넘김 (Destructuring assignment 참조)
+    <Item day={item.day} date={item.date} /> 
+  );
+
+  const renderTickle = ({ item }) => (
+    <Tickle />
   );
 
   return (
@@ -66,9 +106,17 @@ export default function App() {
         <FlatList
           data={DATA}
           renderItem={renderItem}
-          keyExtractor={item => item.key}
+          // keyExtractor={item => item.key}
           horizontal={true}
-          contentContainerStyle={{ flex: 1, justifyContent: "space-around" }}
+          contentContainerStyle={{ flex: 1, justifyContent: "space-between"}}
+        />
+      </View>
+      <View style={styles.task}>
+      <FlatList
+          data={TICKLE}
+          renderItem={renderTickle}
+          horizontal={true}
+          contentContainerStyle={{ flex: 1, justifyContent: "space-between"}}
         />
       </View>
 
@@ -87,23 +135,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 25,
+    paddingHorizontal: 15,  // more padding than the weeklyCal View to align left and right (width 40 given for day/date)
   },
   projectName: {
     fontSize: 28,
     fontWeight: '600',
   },
   weeklyCal: {
-    // backgroundColor: 'orange',
-    paddingHorizontal: 15,
+    // backgroundColor: 'skyblue',
+    paddingHorizontal: 15, 
     paddingTop: 10,
     paddingBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey'
+    borderBottomColor: 'lightgrey', 
   },
   item: {
+    // backgroundColor: "orange",
     alignItems: 'center',
-    width: 40
+    width: 40 // fixed width due to different box sizes for each day(text)
   },
   day: {
     fontSize: 14,
@@ -119,5 +168,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+  },
+  task: {
+    marginTop: 20,  // ** temporary
+    paddingHorizontal: 15,
+    // backgroundColor: "orange",
+    width : "100%"
+  },
+  tickle: {
+    borderRadius: 50,
+    width : 40,
+    height : 40,
+    backgroundColor: "green",
+    alignItems: 'center',
+    justifyContent: 'center'
+    // width: '100%',
   }
 });

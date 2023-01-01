@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { YellowBox } from "react-native-web";
-import { Tickle } from './Tickle'
+import { Tickle } from './Tickle';
 
 const Task = ({ module, taskName, desc, data, updateData }) => {
   const moduleType = {module};
